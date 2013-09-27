@@ -32,5 +32,23 @@ describe("tree", function() {
     expect(tree.contains(1000)).toEqual(false);
     //expect(tree.children[1].children[0].children[0].value).toEqual(100);
   });
+
+  it("should correctly find a parent node", function(){
+    tree.addChild(9);
+    tree.children[0].addChild(10);
+    expect(tree.children[0].children[0].parent.value).toEqual(9);
+    //expect(tree.children[1].children[0].children[0].value).toEqual(100);
+  });
+
+  it("should correctly abandon their child", function(){
+    tree.addChild(9);
+    tree.children[0].addChild(10);
+    expect(tree.children[0].children[0].parent.value).toEqual(9);
+    var bastard = tree.children[0].children[0];
+    tree.children[0].children[0].removeFromParent();
+    expect(bastard.parent).toEqual(null);
+    expect(tree.contains(10)).toEqual(false);
+  });
+
   // Add more tests here to test the functionality of tree.
 });
