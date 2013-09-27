@@ -8,18 +8,28 @@ var makeLinkedList = function(){
     var newNode = makeNode(value);
     if (!list.head) {
       list.head = newNode;
+      list.tail = newNode;
+    } else {
+      list.tail.next = newNode;
+      list.tail = newNode;
     }
-    list.tail.next = newNode;
-    list.tail = newNode;
   };
 
   list.removeHead = function(){
     if (list.head) {
-      list.head.next = list.head;
+      list.head = list.head.next;
     }
   };
 
-  list.contains = function(){
+  list.contains = function(value){
+    var currentNode = list.head;
+    while (currentNode){
+      if (currentNode.value === value) {
+        return true;
+      }
+      currentNode = currentNode.next;
+    }
+    return false;
   };
 
   return list;

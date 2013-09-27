@@ -16,5 +16,52 @@ describe("linkedList", function() {
     expect(linkedList.contains).toEqual(jasmine.any(Function));
   });
 
+  it("should addToTail", function(){
+    linkedList.addToTail(7);
+    expect(linkedList.tail.value).toEqual(7);
+  });
+
+  it("should be able to add two values to tail", function(){
+    linkedList.addToTail(9);
+    linkedList.addToTail(10);
+    expect(linkedList.tail.value).toEqual(10);
+  });
+
+  it("should removeHead", function(){
+    linkedList.addToTail(2);
+    linkedList.addToTail(5);
+    linkedList.removeHead();
+    expect(linkedList.head.value).toEqual(5);
+  });
+
+  it("should tell whether the list contains a value", function(){
+    linkedList.addToTail(6);
+    expect(linkedList.contains(6)).toEqual(true);
+  });
+
+  it("should tell whether the list does not contain a value", function(){
+    linkedList.addToTail(5);
+    expect(linkedList.contains(6)).toEqual(false);
+  });
+
+  it("should tell whether the list contains a value after removing head", function(){
+    linkedList.addToTail(6);
+    linkedList.addToTail(19);
+    linkedList.removeHead();
+    expect(linkedList.contains(6)).toEqual(false);
+  });
+
+  it("should tell whether the list contains a value after doing a lot of stuff", function(){
+    linkedList.addToTail(6);
+    linkedList.addToTail(19);
+    linkedList.removeHead();
+    linkedList.addToTail(7);
+    linkedList.addToTail(11);
+    linkedList.addToTail(14);
+    linkedList.removeHead();
+    linkedList.removeHead();
+    expect(linkedList.head.value).toEqual(11);
+    //expect(linkedList.contains(7)).toEqual(false);
+  });
   // add more tests here to test the functionality of linkedList
 });
