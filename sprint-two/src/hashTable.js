@@ -33,7 +33,16 @@ HashTable.prototype.retrieve = function(k){
   }
 };
 
-HashTable.prototype.remove = function(){
+HashTable.prototype.remove = function(k){
+  var i = getIndexBelowMaxForKey(k, this._limit);
+  var bucket = this._storage.get(i);
+  if(bucket){
+    for (var j=0; j<bucket.length; j++){
+      if(bucket[j][0] === k){
+        bucket.splice(j,1);
+      }
+    }
+  }
 };
 
 // NOTE: For this code to work, you will NEED the code from hashTableHelpers.js
