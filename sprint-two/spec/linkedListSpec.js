@@ -63,5 +63,36 @@ describe("linkedList", function() {
     expect(linkedList.head.value).toEqual(11);
     //expect(linkedList.contains(7)).toEqual(false);
   });
+
+  it("should add to head", function(){
+    linkedList.addToTail(14);
+    linkedList.addToHead(100);
+    expect(linkedList.head.value).toEqual(100);
+  });
+
+
+  it("should remove from tail", function(){
+    linkedList.addToTail(11);
+    linkedList.addToTail(14);
+    linkedList.removeTail();
+    expect(linkedList.tail.value).toEqual(11);
+  });
+
+  it("should tell whether the list contains a value after doing a lot of stuff", function(){
+    linkedList.addToTail(6);
+    linkedList.addToTail(19);
+    linkedList.addToHead(25);
+    linkedList.removeHead();
+    linkedList.addToHead(8);
+    linkedList.addToTail(7);
+    linkedList.removeTail();
+    linkedList.addToTail(11);
+    linkedList.addToTail(14);
+    linkedList.removeTail();
+    linkedList.removeHead();
+    linkedList.removeHead();
+    expect(linkedList.contains(7)).toEqual(false);
+    expect(linkedList.contains(11)).toEqual(true);
+  });
   // add more tests here to test the functionality of linkedList
 });
