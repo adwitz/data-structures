@@ -33,17 +33,11 @@ describe("binarySearchTree", function() {
     binarySearchTree.insert(99);
     binarySearchTree.insert(101);
     binarySearchTree.insert(98);
-    var doub = function(){
-      if (this.left){
-        this.value = this.value * this.left.value;
-      }
-      if (this.right){
-        this.value = this.value * this.right.value;
-      }
+    var doub = function(input){
+      return 2*input;
     };
     binarySearchTree.depthFirstLog(doub);
-    expect(binarySearchTree.contains(99 * 101 * 98)).toEqual(true);
+    expect(binarySearchTree.contains(202)).toEqual(true);
   });
   // add more tests here to test the functionality of binarySearchTree
 });
-
