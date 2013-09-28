@@ -19,17 +19,17 @@ bsTreeMethods.insert = function(value){
   var newTree = makeBinarySearchTree(value);
   var firstNode = this;
   var placement = function(tree, compareNode) {
-    if (tree.value > firstNode.value) {
-      if (firstNode.right) {
-        placement(tree, firstNode.right);
+    if (tree.value > compareNode.value) {
+      if (compareNode.right) {
+        placement(tree, compareNode.right);
       } else{
-        firstNode.right = tree;
+        compareNode.right = tree;
       }
     } else{
-      if (firstNode.left) {
-        placement(tree, firstNode.left);
+      if (compareNode.left) {
+        placement(tree, compareNode.left);
       } else{
-        firstNode.left = tree;
+        compareNode.left = tree;
       }
     }
   };
@@ -41,7 +41,6 @@ bsTreeMethods.contains = function(value, result){
   if (this.value === value){
     return true;
   }
-
   if (value > this.value && this.right) {
     result = result || this.right.contains(value, result);
   } else if (this.left) {
@@ -52,5 +51,11 @@ bsTreeMethods.contains = function(value, result){
 };
 
 bsTreeMethods.depthFirstLog = function(callBack){
-
+  this.value = callBack(this.value);
+  if (this.left) {
+    this.left.depthFirstLog(callBack);
+  }
+  if (this.right) {
+    this.right.depthFirstLog(callBack);
+  }
 };
