@@ -1,5 +1,6 @@
 var HashTable = function(){
   this._limit = 8;
+  this._size = 0;
 
   // Use a limited array to store inserted elements.
   // It'll keep you from using too much space. Usage:
@@ -14,13 +15,19 @@ var HashTable = function(){
 
 HashTable.prototype.insert = function(k, v){
   var i = getIndexBelowMaxForKey(k, this._limit);
-  //given i, we can find storage[index], aka bucket, if array bucket doesn't exist
-  // pass empty bucket
-  if (!this._storage.get(i)) {
-    this._storage.set(i, []);
+  var bucket = this._storage.get(i) || [];
+  for (var j = 0; j< bucket.length; j++){
+    if (bucket[j][0]===k){
+      bucket[j][1]=v;
+      return;
+    }
   }
-  var bucket = this._storage.get(i);
   bucket.push([k,v]);
+  this._storage.set(i, bucket);
+  this._size++;
+  if(this._size > this._limit * 0.75){
+    this.resize( 2 * this._limit);
+  }
 };
 
 HashTable.prototype.retrieve = function(k){
@@ -43,6 +50,24 @@ HashTable.prototype.remove = function(k){
       }
     }
   }
+  this._size--;
+  if (this._size < this._limit * 0.25){
+    this.resize(this._limit * 0.5);
+  }
+};
+
+HashTable.prototype.resize = function(newSize){
+  var oldStorage = this._storage;
+  var hashTbl = this;
+  this._storage = makeLimitedArray(newSize);
+  oldStorage.each(function(bucket){
+    if (bucket){
+      for (var i = 0; i < bucket.length; i++){
+        console.log(i);
+        hashTbl.insert(bucket[i][0], bucket[i][1]);
+      }
+    }
+  });
 };
 
 // NOTE: For this code to work, you will NEED the code from hashTableHelpers.js
