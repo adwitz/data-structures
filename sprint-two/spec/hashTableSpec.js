@@ -29,4 +29,17 @@ describe("hashTable", function() {
     hashTable.remove(v1);
     expect(hashTable.retrieve(v1)).toEqual(undefined);
   });
+
+  it("should change the length of storage", function(){
+    //spyOn(window, 'getIndexBelowMaxForKey').andReturn(0);
+    hashTable.insert("a", 1);
+    hashTable.insert("b", 2);
+    hashTable.insert("c", 3);
+    hashTable.insert("d", 4);
+    expect(hashTable._storage.length>8).toEqual(false);
+    hashTable.insert("e", 5);
+    hashTable.insert("f", 6);
+    hashTable.insert("g", 7);
+    expect(hashTable._storage.length>8).toEqual(true);
+  });
 });
