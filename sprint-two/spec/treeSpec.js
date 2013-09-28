@@ -29,7 +29,7 @@ describe("tree", function() {
     tree.children[0].addChild(13);
     tree.children[1].addChild(14);
     tree.children[1].children[0].addChild(100);
-    expect(tree.contains(1000)).toEqual(false);
+    expect(tree.contains(100)).toEqual(true);
     //expect(tree.children[1].children[0].children[0].value).toEqual(100);
   });
 
@@ -44,9 +44,9 @@ describe("tree", function() {
     tree.addChild(9);
     tree.children[0].addChild(10);
     expect(tree.children[0].children[0].parent.value).toEqual(9);
-    var bastard = tree.children[0].children[0];
+    var child = tree.children[0].children[0];
     tree.children[0].children[0].removeFromParent();
-    expect(bastard.parent).toEqual(null);
+    expect(child.parent).toEqual(null);
     expect(tree.contains(10)).toEqual(false);
   });
 
