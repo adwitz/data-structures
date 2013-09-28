@@ -32,21 +32,15 @@ treeMethods.removeFromParent = function(){
   this.parent = null;
 };
 
-treeMethods.contains = function(value){
-  //var truth = 0;
-  if (this.value === value) {
+treeMethods.contains = function(value, result){
+  result = result || false;
+  if (this.value === value){
     return true;
   }
-  else if (this.children.length) {
-    for (var i = 0; i < this.children.length; i++){
-      if (i === this.children.length - 1) {
-        return this.children[i].contains(value);
-      }
-      else {
-        this.children[i].contains(value);
-      }
+  if (this.children.length > 0) {
+    for (var i = 0; i < this.children.length; i++) {
+      result = result || this.children[i].contains(value, result);
     }
   }
-  return false;
+  return result;
 };
-
